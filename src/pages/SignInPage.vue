@@ -13,25 +13,48 @@
         placeholder="Password"
       />
     </NFormItem>
-    <NButton type="primary" round attr-type="submit">Se connecter</NButton>
+    <NButton
+      type="primary"
+      round
+      :loading="store.loading"
+      :disabled="store.loading"
+      attr-type="submit"
+      >Se connecter</NButton
+    >
   </NForm>
   <p>Pas encore inscrit ? <RouterLink to="/sign-up">cliquez ici</RouterLink></p>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 
-import { useApi } from '@/composables/useApi'
-const useAPI = useApi()
+import { useAuthStore } from '@/store/auth.store'
+
+const router = useRouter()
+const store = useAuthStore()
 
 const email = ref('')
 const password = ref('')
 
+watch(
+  () => store.error,
+  (newError) => {
+    if (newError) {
+      ;(window as unknown).$message?.error(newError)
+      store.clearError()
+    }
+  },
+)
+
 const handleSignIn = async () => {
-  await useAPI.signIn({
+  await store.signIn({
     email: email.value,
     password: password.value,
   })
+  if (!store.error && store.isAuthenticated) {
+    router.push('/')
+  }
 }
 </script>
 

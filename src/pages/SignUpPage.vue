@@ -21,28 +21,50 @@
         placeholder="Password"
       />
     </NFormItem>
-    <NButton type="primary" round attr-type="submit">S'inscrire</NButton>
+    <NButton
+      type="primary"
+      round
+      :loading="store.loading"
+      :disabled="store.loading"
+      attr-type="submit"
+      >S'inscrire</NButton
+    >
   </NForm>
   <p>Déjà inscrit ? <RouterLink to="/sign-in">cliquez ici</RouterLink></p>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, watch } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 
 import { useAuthStore } from '@/store/auth.store'
-const AuthStore = useAuthStore()
+
+const router = useRouter()
+const store = useAuthStore()
 
 const username = ref('')
 const email = ref('')
 const password = ref('')
 
+watch(
+  () => store.error,
+  (newError) => {
+    if (newError) {
+      ;(window as unknown).$message?.error(newError)
+      store.clearError()
+    }
+  },
+)
+
 const handleSignUp = async () => {
-  AuthStore.signUp({
+  await store.signUp({
     username: username.value,
     email: email.value,
     password: password.value,
   })
+  if (!store.error && store.isAuthenticated) {
+    router.push('/')
+  }
 }
 </script>
 

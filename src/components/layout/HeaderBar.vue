@@ -1,5 +1,6 @@
 <template>
   <NLayoutHeader
+    v-if="store.isAuthenticated"
     bordered
     style="padding: 0 24px; position: sticky; top: 0; z-index: 100"
   >
@@ -26,13 +27,24 @@
         </NButton>
       </NSpace>
       <NSpace align="center" :size="16">
-        <NText depth="3">Renseigner le user connecté ici</NText>
-        <NButton size="small">Déconnexion</NButton>
+        <NText depth="3">{{ store.user?.username }}</NText>
+        <NButton size="small" @click="handleLogout">Déconnexion</NButton>
       </NSpace>
     </NSpace>
   </NLayoutHeader>
 </template>
 
 <script setup lang="ts">
+import { RouterLink, useRouter } from 'vue-router'
+
+import { useAuthStore } from '@/store/auth.store'
+
+const router = useRouter()
+const store = useAuthStore()
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string
+
+const handleLogout = () => {
+  store.signOut()
+  router.push('/sign-in')
+}
 </script>
