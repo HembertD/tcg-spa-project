@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 import { ref, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 
@@ -42,6 +43,8 @@ import { useAuthStore } from '@/store/auth.store'
 const router = useRouter()
 const store = useAuthStore()
 
+const message = useMessage()
+
 const username = ref('')
 const email = ref('')
 const password = ref('')
@@ -49,8 +52,8 @@ const password = ref('')
 watch(
   () => store.error,
   (newError) => {
-    if (newError) {
-      ;(window as unknown).$message?.error(newError)
+    if (newError !== null) {
+      message.error(newError)
       store.clearError()
     }
   },
