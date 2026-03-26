@@ -1,5 +1,26 @@
 <template>
   <div class="container">
-    <NEmpty description="Page d'accueil à implémenter (tickets 2 et 3)" />
+    <NSpace vertical style="width: 100%">
+      <NButton
+        size="large"
+        type="primary"
+        style="margin-bottom: 2rem"
+        @click="createDeck"
+      >
+        Créer un deck
+      </NButton>
+      <DeckList />
+    </NSpace>
   </div>
 </template>
+
+<script setup lang="ts">
+import { NButton, NSpace } from 'naive-ui'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const createDeck = () => {
+  router.push('/decks/create')
+}
+</script>

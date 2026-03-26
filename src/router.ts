@@ -7,7 +7,6 @@ import DeckDetailPage from './pages/DeckDetailPage.vue'
 import HomePage from './pages/HomePage.vue'
 import SignInPage from './pages/SignInPage.vue'
 import SignUpPage from './pages/SignUpPage.vue'
-import TestPage from './pages/TestPage.vue'
 
 export const ROUTES = {
   HOME: '/',
@@ -38,7 +37,6 @@ const routes = [
   },
   { path: ROUTES.SIGN_UP, component: SignUpPage },
   { path: ROUTES.SIGN_IN, component: SignInPage },
-  { path: ROUTES.TEST, component: TestPage },
 ]
 
 const router = createRouter({
