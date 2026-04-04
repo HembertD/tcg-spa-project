@@ -10,6 +10,7 @@
         Créer un deck
       </NButton>
       <DeckList />
+      <LobbyElements />
     </NSpace>
   </div>
 </template>
@@ -18,9 +19,19 @@
 import { NButton, NSpace } from 'naive-ui'
 import { useRouter } from 'vue-router'
 
+import DeckList from '@/components/DeckList.vue'
+
 const router = useRouter()
 
 const createDeck = () => {
   router.push('/decks/create')
 }
 </script>
+
+<style scoped>
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+</style>
