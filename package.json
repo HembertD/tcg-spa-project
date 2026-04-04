@@ -21,9 +21,10 @@
     "api:reset": "docker compose exec api npx tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@types/socket.io-client": "^1.4.36",
     "naive-ui": "2.43.2",
     "pinia": "2.3.1",
-    "socket.io-client": "4.8.3",
+    "socket.io-client": "^4.8.3",
     "vue": "3.5.29",
     "vue-router": "4.6.4"
   },
