@@ -11,4 +11,8 @@ app.use(createPinia())
 app.use(router)
 app.use(naive)
 
+// Pre-fetch Pokemon cards on app start
+import { usePokemonStore } from './store/pokemon.store'
+usePokemonStore().fetchPokemons()
+
 app.mount('#app')
